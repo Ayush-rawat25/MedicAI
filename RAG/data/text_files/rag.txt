@@ -1,0 +1,15 @@
+Retrieval-Augmented Generation (RAG) combines information retrieval with large language models to produce more accurate and up-to-date responses.
+
+    A typical RAG pipeline:
+    1. Split documents into smaller chunks.
+    2. Convert chunks into vector embeddings.
+    3. Store embeddings in a vector database.
+    4. Retrieve the most relevant chunks for a user query.
+    5. Send the retrieved context to an LLM to generate an answer.
+
+    Benefits of RAG:
+    - Reduces hallucinations.
+    - Uses private or domain-specific knowledge.
+    - Avoids retraining the language model for new information.
+
+    Common vector databases include FAISS, Pinecone, Chroma, and Weaviate.

@@ -1,0 +1,20 @@
+Machine Learning (ML) is a branch of artificial intelligence that enables computers to learn patterns from data without being explicitly programmed.
+
+    Common types of machine learning:
+    - Supervised Learning: Uses labeled data for tasks like classification and regression.
+    - Unsupervised Learning: Finds hidden patterns in unlabeled data, such as clustering.
+    - Reinforcement Learning: Learns by interacting with an environment and receiving rewards.
+
+    Popular algorithms include:
+    - Linear Regression
+    - Decision Trees
+    - Random Forest
+    - Support Vector Machines (SVM)
+    - Neural Networks
+
+    Typical ML workflow:
+    1. Collect data.
+    2. Clean and preprocess the data.
+    3. Train a model.
+    4. Evaluate performance.
+    5. Deploy the model for predictions.
