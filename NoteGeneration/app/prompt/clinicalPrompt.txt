@@ -1,57 +1,184 @@
 
 TASK:
-Convert the following diarized doctor-patient conversation into
-structured clinical notes.
+Convert the provided diarized doctor-patient conversation and
+available historical patient records into structured clinical notes.
 
 SPEAKER IDENTIFICATION RULES:
 
 1. The transcript contains diarization labels such as SPEAKER_0,
-   SPEAKER_1
+   SPEAKER_1, sp0, and sp1.
 
 2. These labels identify distinct speakers only. They do not
    inherently indicate doctor or patient.
 
-3. Infer the likely speaker roles from the conversational context
-   only when there is sufficient evidence.
+3. Infer speaker roles from conversational context only when
+   sufficient evidence exists.
 
-4. Never assume that SPEAKER_0 is the doctor or SPEAKER_1 is
-   the patient.
+4. Never assume that SPEAKER_0 or SPEAKER_1 represents a
+   particular role.
 
-5. If the role is unclear, preserve the uncertainty.
+5. If speaker roles cannot be established confidently, preserve
+   the uncertainty.
 
-6. Generate clinical notes using information supported by the
-   conversation. Do not invent missing clinical details.
+6. Distinguish patient-reported information from information
+   stated by the clinician.
 
-INSTRUCTIONS:
+CLINICAL INFORMATION EXTRACTION:
 
-1. Read the complete conversation carefully before generating notes.
-2. Extract relevant clinical information from both speakers.
-3. Use speaker labels to distinguish patient-reported information
-   from doctor-provided information.
-4. Organize the extracted information into the requested fields.
-5. Remove conversational repetition without removing clinically
-   relevant details.
-6. Preserve important details such as:
-   - Symptom duration
-   - Symptom frequency and severity
-   - Medication names and dosages
-   - Medical history
-   - Allergies
+1. Read the complete conversation before generating notes.
+
+2. Extract all clinically relevant information from the
+   conversation.
+
+3. Preserve important details, including:
+   - Chief complaint
+   - Symptom duration, frequency, severity and progression
+   - Associated symptoms and relevant negative symptoms
+   - Past medical history
+   - Current and discontinued medications
+   - Medication names and dosages, when available
+   - Allergies and reported reactions
    - Examination findings
-   - Diagnosis and treatment instructions
-7. Do not infer information that is not present.
-8. If the transcript contains conflicting information, preserve
-   the conflict rather than choosing one version.
-9. If information is unclear because of transcription errors,
-   do not guess. Mention it in missing_information.
-10. Return only valid JSON matching the supplied schema.
+   - Clinical assessment
+   - Diagnoses, if explicitly established
+   - Treatment and follow-up instructions
+
+4. Remove conversational repetition without removing
+   clinically relevant information.
+
+5. Generate a meaningful history_of_present_illness by
+   combining relevant statements into a coherent clinical
+   summary.
+
+6. Do not use "Not mentioned" for HPI when sufficient
+   information exists to construct a summary.
+
+7. Do not interpret questions asked by the clinician as
+   confirmed patient symptoms. For example, asking about
+   fever does not establish that the patient has fever.
+
+8. Preserve relevant negative findings when explicitly
+   reported by the patient.
+
+HISTORICAL RECORD HANDLING:
+
+1. Use historical records provided in the input to supplement
+   the current consultation.
+
+2. Do not assume that historical information is still current.
+
+3. Preserve the date and nature of historical information
+   when relevant.
+
+4. Distinguish between:
+   - Information reported during the current consultation.
+   - Information documented in historical records.
+
+5. If current consultation information conflicts with historical
+   records, preserve both statements and identify the conflict.
+
+6. Do not treat a suspected allergy as a confirmed allergy.
+
+7. Do not duplicate the same information unnecessarily across
+   medical_history, medications, and allergies.
+
+8. A historical medication marked as discontinued must not
+   be represented as a current medication.
+
+9. Do not invent historical details when no records are provided.
+
+FIELD-SPECIFIC INSTRUCTIONS:
+
+1. patient_complaint:
+   Record the patient's primary complaints in concise phrases.
+
+2. history_of_present_illness:
+   Provide a coherent chronological summary of the current
+   illness using available information.
+
+3. symptoms:
+   Include relevant positive and negative symptoms.
+   Preserve whether symptoms are current, resolved, or historical.
+
+4. medical_history:
+   Include relevant past or existing medical conditions.
+   Do not place medication allergies here unless they are
+   relevant to a broader medical history entry.
+
+5. medications:
+   Include current, previously prescribed, and discontinued
+   medications with their status clearly identified.
+   Never invent medication names or dosages.
+
+6. allergies:
+   Include the substance, reported reaction, and certainty
+   when available.
+   Preserve distinctions between suspected and confirmed
+   allergies.
+
+7. examination_findings:
+   Include only examination findings explicitly documented
+   by the clinician.
+   Do not treat planned examinations as completed examinations.
+
+8. assessment:
+   Summarize the clinician's documented clinical assessment.
+   If no assessment is provided, indicate that it is not documented.
+
+9. diagnosis:
+   Include only diagnoses explicitly established or documented.
+   Do not independently diagnose the patient based on symptoms.
+
+10. treatment_plan:
+    Include only treatment instructions explicitly provided
+    by the clinician.
+
+11. follow_up:
+    Include documented follow-up instructions.
+    Do not invent appointments or follow-up schedules.
+
+12. missing_information:
+    Identify relevant clinical information that is unavailable
+    or unclear from the conversation and historical records.
+    Do not list every conceivable clinical detail.
+    Include information that would materially help complete
+    the clinical note.
+
+ACCURACY AND SAFETY RULES:
+
+1. Never fabricate clinical information.
+
+2. Never infer diagnoses, medications, dosages, test results,
+   examination findings, or treatment recommendations.
+
+3. Preserve uncertainty and conflicting information.
+
+4. Do not convert patient-reported statements into
+   clinician-confirmed findings.
+
+5. Do not convert historical information into current
+   information without supporting evidence.
+
+6. If information is unavailable, use an empty list or the
+   appropriate unavailable value supported by the schema.
+
+7. Maintain concise, professional clinical language.
+
+OUTPUT REQUIREMENTS:
+
+1. Return only valid JSON.
+2. Follow the supplied output schema exactly.
+3. Include every required schema field.
+4. Do not add extra fields.
+5. Do not include Markdown formatting, explanations,
+   or text outside the JSON object.
 
 OUTPUT SCHEMA:
 
 {output_schema}
 
-DIARIZED TRANSCRIPT:
+DIARIZED TRANSCRIPT AND PATIENT CONTEXT:
 
 {transcript}
 
-Generate the clinical notes now.
+Generate the structured clinical notes now.
