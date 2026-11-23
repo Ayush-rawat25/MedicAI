@@ -1,0 +1,38 @@
+
+TASK:
+Convert the following diarized doctor-patient conversation into
+structured clinical notes.
+
+INSTRUCTIONS:
+
+1. Read the complete conversation carefully before generating notes.
+2. Extract relevant clinical information from both speakers.
+3. Use speaker labels to distinguish patient-reported information
+   from doctor-provided information.
+4. Organize the extracted information into the requested fields.
+5. Remove conversational repetition without removing clinically
+   relevant details.
+6. Preserve important details such as:
+   - Symptom duration
+   - Symptom frequency and severity
+   - Medication names and dosages
+   - Medical history
+   - Allergies
+   - Examination findings
+   - Diagnosis and treatment instructions
+7. Do not infer information that is not present.
+8. If the transcript contains conflicting information, preserve
+   the conflict rather than choosing one version.
+9. If information is unclear because of transcription errors,
+   do not guess. Mention it in missing_information.
+10. Return only valid JSON matching the supplied schema.
+
+OUTPUT SCHEMA:
+
+{output_schema}
+
+DIARIZED TRANSCRIPT:
+
+{transcript}
+
+Generate the clinical notes now.

@@ -1,0 +1,15 @@
+
+# API Framework
+fastapi
+uvicorn[standard]
+
+# Data Validation
+pydantic
+
+# LLM Integration
+ollama
+
+# Environment Configuration
+python-dotenv
+
+pydantic-settings
