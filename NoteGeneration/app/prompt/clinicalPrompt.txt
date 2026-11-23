@@ -3,6 +3,25 @@ TASK:
 Convert the following diarized doctor-patient conversation into
 structured clinical notes.
 
+SPEAKER IDENTIFICATION RULES:
+
+1. The transcript contains diarization labels such as SPEAKER_0,
+   SPEAKER_1
+
+2. These labels identify distinct speakers only. They do not
+   inherently indicate doctor or patient.
+
+3. Infer the likely speaker roles from the conversational context
+   only when there is sufficient evidence.
+
+4. Never assume that SPEAKER_0 is the doctor or SPEAKER_1 is
+   the patient.
+
+5. If the role is unclear, preserve the uncertainty.
+
+6. Generate clinical notes using information supported by the
+   conversation. Do not invent missing clinical details.
+
 INSTRUCTIONS:
 
 1. Read the complete conversation carefully before generating notes.
