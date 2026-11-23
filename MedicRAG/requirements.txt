@@ -1,0 +1,11 @@
+
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+
+sentence-transformers
+chromadb
+numpy
+langchain-text-splitters

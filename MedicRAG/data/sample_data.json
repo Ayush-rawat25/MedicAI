@@ -1,0 +1,75 @@
+
+{
+  "records": [
+    {
+      "patient_id": "PATIENT_001",
+      "record_id": "CONSULT_001",
+      "record_type": "consultation",
+      "record_date": "2026-08-12",
+      "content": "Patient reported a skin rash after taking amoxicillin for a throat infection. The rash appeared approximately two days after starting the medication. No breathing difficulty or facial swelling was reported. The doctor documented a suspected amoxicillin allergy and advised avoiding the medication until further assessment."
+    },
+    {
+      "patient_id": "PATIENT_001",
+      "record_id": "CONSULT_002",
+      "record_type": "consultation",
+      "record_date": "2026-09-15",
+      "content": "Patient visited the clinic with complaints of recurring dry cough for four days. Patient also reported mild fever during the first two days, which had resolved before the consultation. No shortness of breath was reported. The doctor recommended monitoring symptoms and maintaining adequate hydration."
+    },
+    {
+      "patient_id": "PATIENT_001",
+      "record_id": "MED_001",
+      "record_type": "medication_record",
+      "record_date": "2026-09-15",
+      "content": "Patient was prescribed cetirizine 10 mg once daily for three days for allergy-related symptoms. The prescription was limited to this episode. No information about long-term medication use was documented."
+    },
+    {
+      "patient_id": "PATIENT_001",
+      "record_id": "CONSULT_003",
+      "record_type": "consultation",
+      "record_date": "2026-10-20",
+      "content": "Patient reported stomach discomfort and occasional acidity, particularly after eating spicy meals. No vomiting or blood in stool was reported. The patient stated that symptoms had been occurring intermittently for approximately two weeks. The doctor documented dietary history and advised follow-up if symptoms persisted."
+    },
+    {
+      "patient_id": "PATIENT_001",
+      "record_id": "LAB_001",
+      "record_type": "lab_report",
+      "record_date": "2026-10-22",
+      "content": "Fictional laboratory record: Hemoglobin 13.8 g/dL, total leukocyte count 7200 cells per microliter, and platelet count 250000 cells per microliter. These values are included only as synthetic test data."
+    },
+    {
+      "patient_id": "PATIENT_001",
+      "record_id": "CONSULT_004",
+      "record_type": "consultation",
+      "record_date": "2026-11-05",
+      "content": "Patient returned for follow-up regarding stomach discomfort. Patient reported that acidity had reduced after avoiding spicy food. Occasional discomfort remained after heavy meals. No new medication was documented during this consultation."
+    },
+    {
+      "patient_id": "PATIENT_002",
+      "record_id": "CONSULT_101",
+      "record_type": "consultation",
+      "record_date": "2026-08-18",
+      "content": "Patient reported recurrent headaches, usually occurring in the evening after prolonged computer use. The headaches were described as mild to moderate. No vomiting or visual disturbances were reported."
+    },
+    {
+      "patient_id": "PATIENT_002",
+      "record_id": "MED_101",
+      "record_type": "medication_record",
+      "record_date": "2026-08-18",
+      "content": "Patient was advised to use paracetamol 500 mg when required for headache symptoms. This was documented as an as-needed medication recommendation for the reported episode."
+    },
+    {
+      "patient_id": "PATIENT_002",
+      "record_id": "CONSULT_102",
+      "record_type": "consultation",
+      "record_date": "2026-10-02",
+      "content": "Patient returned with complaints of disturbed sleep for approximately three weeks. Patient reported difficulty falling asleep and frequent waking during the night. The patient also reported increased screen time before bedtime."
+    },
+    {
+      "patient_id": "PATIENT_002",
+      "record_id": "CONSULT_103",
+      "record_type": "consultation",
+      "record_date": "2026-11-10",
+      "content": "Patient reported improvement in sleep after reducing screen exposure before bedtime. Occasional difficulty falling asleep continued. No medication use for sleep was documented."
+    }
+  ]
+}
