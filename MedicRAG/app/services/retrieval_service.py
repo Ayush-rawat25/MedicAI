@@ -1,141 +1,140 @@
 
 import logging
 import time
+from typing import Any
 
 from app.config import settings
-
-from app.schemas.retrieval_input import RetrievalInput
-from app.schemas.retrieval_response import (
-    RetrievalResponse,
-    RetrievedRecord,
-    RetrievalMetadata
+from app.retrieval.intent_classifier import IntentClassifier
+from app.retrieval.retrival_router import (
+    RetrievalRouter,
+    RetrievalRouterError
 )
-
-from app.ingestion.embedding_service import EmbeddingService
-from app.vectorStore.chroma_store import ChromaStore
-from app.retrieval.retriever import Retriever, RetrievalError
-from app.retrieval.ranking import RecordRanker, RankingError
-
 
 logger = logging.getLogger(__name__)
 
 
 class RetrievalServiceError(Exception):
     """Raised when the retrieval service fails."""
-    pass
 
 
 class RetrievalService:
 
     def __init__(
         self,
-        retriever: Retriever,
-        record_ranker: RecordRanker
+        intent_classifier: IntentClassifier,
+        retrieval_router: RetrievalRouter
     ):
-        self.retriever = retriever
-        self.record_ranker = record_ranker
+        self.intent_classifier = intent_classifier
+        self.retrieval_router = retrieval_router
 
-        self.top_k = settings.RETRIEVAL_TOP_K
-
-    def retrieve(
-        self,
-        request: RetrievalInput
-    ) -> RetrievalResponse:
+    def retrieve(self, request: Any) -> dict[str, Any]:
         """
-        Retrieve relevant historical records for a patient.
-
-        Args:
-            request: Validated retrieval request.
-
-        Returns:
-            Structured retrieval response containing ranked records.
+        Classifies the query, routes retrieval, and builds
+        a standardized API response.
         """
 
         start_time = time.perf_counter()
 
         try:
-            logger.info(
-                "Starting retrieval | Patient: %s | Conversation: %s",
-                request.patient_id,
-                request.conversation_id
+            # 1. Classify the user's query.
+            intent = self.intent_classifier.classify(
+                query=request.query,
+                context=getattr(request, "retrieval_context", None)
             )
 
-            # Step 1: Retrieve relevant chunks for the patient
-            retrieval_result = self.retriever.retrieve(
+            logger.info(
+                "Query classified | Patient: %s | Strategy: %s | Method: %s",
+                request.patient_id,
+                intent.strategy,
+                intent.method
+            )
+
+            # 2. Execute the selected retrieval strategy.
+            retrieval_result = self.retrieval_router.retrieve(
                 patient_id=request.patient_id,
                 query=request.query,
-                top_k=self.top_k * 3
+                intent=intent
             )
 
-            retrieved_chunks = retrieval_result["retrieved_chunks"]
-
-            # Step 2: Group chunks into complete historical records
-            # and rank records by relevance
-            ranked_records = self.record_ranker.rank(
-                retrieved_chunks=retrieved_chunks,
-                top_k=self.top_k
+            records = retrieval_result.get(
+                "retrieved_records", []
             )
 
-            # Step 3: Convert ranked records into response schema
-            response_records = [
-                RetrievedRecord(
-                    record_id=record["record_id"],
-                    date=record["date"],
-                    record_type=record["record_type"],
-                    content=record["content"],
-                    relevance_score=record["relevance_score"],
-                    source=record.get("source")
-                )
-                for record in ranked_records
-            ]
-
-            total_time = time.perf_counter() - start_time
-
-            # Step 4: Construct retrieval metadata
-            metadata = RetrievalMetadata(
-                retrieved_count=len(response_records),
-                top_k=self.top_k,
-                retrieval_time_seconds=round(total_time, 4),
-                embedding_model=settings.EMBEDDING_MODEL,
-                vector_database="ChromaDB"
+            actual_method = retrieval_result.get(
+                "retrieval_method",
+                intent.method
             )
 
-            # Step 5: Construct final response
-            response = RetrievalResponse(
-                patient_id=request.patient_id,
-                conversation_id=request.conversation_id,
-                consultation_id=request.consultation_id,
-                case_id=request.case_id,
-                status="success",
-                retrieved_records=response_records,
-                metadata=metadata
+            # 3. Determine result status.
+            if records:
+                result_status = "success"
+
+            elif actual_method == "structured":
+                result_status = "no_records_found"
+
+            else:
+                result_status = "no_relevant_records"
+
+            # 4. Calculate total execution time.
+            elapsed_time = time.perf_counter() - start_time
+
+            router_metadata = retrieval_result.get(
+                "metadata", {}
             )
+
+            # 5. Construct standardized response.
+            response = {
+                "status": result_status,
+                "patient_id": request.patient_id,
+                "conversation_id": getattr(
+                    request, "conversation_id", None
+                ),
+                "query": request.query,
+                "retrieved_records": records,
+                "metadata": {
+                    "retrieval_strategy": intent.strategy,
+                    "retrieval_method": actual_method,
+                    "embedding_model": (
+                        settings.EMBEDDING_MODEL
+                        if actual_method == "semantic"
+                        else None
+                    ),
+                    "vector_database": "ChromaDB",
+                    "candidates_retrieved": router_metadata.get(
+                        "candidates_retrieved", 0
+                    ),
+                    "records_returned": len(records),
+                    "records_filtered": router_metadata.get(
+                        "records_filtered", 0
+                    ),
+                    "retrieval_time_seconds": round(
+                        elapsed_time, 4
+                    )
+                }
+            }
 
             logger.info(
-                "Retrieval completed | Patient: %s | Records: %d | Time: %.3fs",
+                "Retrieval completed | Patient: %s | "
+                "Strategy: %s | Method: %s | Records: %d | Time: %.4fs",
                 request.patient_id,
-                len(response_records),
-                total_time
+                intent.strategy,
+                actual_method,
+                len(records),
+                elapsed_time
             )
 
             return response
 
-        except (RetrievalError, RankingError) as exc:
-            logger.exception(
-                "Retrieval pipeline failed for patient %s",
-                request.patient_id
-            )
+        except (RetrievalRouterError, ValueError) as exc:
+            logger.exception("Retrieval service execution failed.")
 
             raise RetrievalServiceError(
                 "Unable to retrieve patient history."
             ) from exc
 
         except Exception as exc:
-            logger.exception(
-                "Unexpected retrieval service error for patient %s",
-                request.patient_id
-            )
+            logger.exception("Unexpected retrieval service error.")
 
             raise RetrievalServiceError(
-                "An unexpected error occurred during retrieval."
+                "Unexpected retrieval service failure."
             ) from exc

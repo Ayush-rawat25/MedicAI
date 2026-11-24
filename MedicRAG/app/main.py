@@ -6,48 +6,69 @@ from fastapi import FastAPI
 
 from app.config import settings
 
+# Ingestion
 from app.ingestion.record_processor import RecordProcessor
 from app.ingestion.embedding_service import EmbeddingService
+from app.services.ingestion_service import IngestionService
 
+# Vector Store
 from app.vectorStore.chroma_store import ChromaStore
 
+# Retrieval
 from app.retrieval.retriever import Retriever
 from app.retrieval.ranking import RecordRanker
-
-from app.services.ingestion_service import IngestionService
+from app.retrieval.structured_retriver import StructuredRetriever
+from app.retrieval.intent_classifier import IntentClassifier
+from app.retrieval.retrival_router import RetrievalRouter
 from app.services.retrieval_service import RetrievalService
 
+# Generation
+from app.generation.llm_service import LLMService
+from app.generation.answer_generation import AnswerGenerator
+from app.services.rag_service import RAGService
+
+# Routes
 from app.routes.ingestion_routes import router as ingestion_router
 from app.routes.retrieval_routes import router as retrieval_router
+from app.routes.rag_routes import router as rag_router
 
-
-# --------------------------------------------------
-# Logging
-# --------------------------------------------------
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 
 logger = logging.getLogger(__name__)
 
 
-# --------------------------------------------------
-# Application Lifespan
-# --------------------------------------------------
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
-    logger.info("Starting %s", settings.APP_NAME)
+    logger.info("Starting MedScribe RAG Service...")
 
     try:
-        # Initialize shared infrastructure
+        # -----------------------------------------
+        # 1. Initialize Embedding Service
+        # -----------------------------------------
+
+        logger.info("Initializing embedding service...")
+
         embedding_service = EmbeddingService()
+
+        # -----------------------------------------
+        # 2. Initialize ChromaDB
+        # -----------------------------------------
+
+        logger.info("Initializing ChromaDB...")
+
         chroma_store = ChromaStore()
 
-        # Initialize ingestion components
+        # -----------------------------------------
+        # 3. Initialize Ingestion Service
+        # -----------------------------------------
+
+        logger.info("Initializing ingestion service...")
+
         record_processor = RecordProcessor()
 
         ingestion_service = IngestionService(
@@ -56,62 +77,152 @@ async def lifespan(app: FastAPI):
             chroma_store=chroma_store
         )
 
-        # Initialize retrieval components
-        retriever = Retriever(
+        # -----------------------------------------
+        # 4. Initialize Semantic Retriever
+        # -----------------------------------------
+
+        logger.info("Initializing semantic retriever...")
+
+        semantic_retriever = Retriever(
             embedding_service=embedding_service,
             chroma_store=chroma_store
         )
 
+        # -----------------------------------------
+        # 5. Initialize Structured Retriever
+        # -----------------------------------------
+
+        logger.info("Initializing structured retriever...")
+
+        structured_retriever = StructuredRetriever(
+            chroma_store=chroma_store
+        )
+
+        # -----------------------------------------
+        # 6. Initialize Intent Classifier
+        # -----------------------------------------
+
+        logger.info("Initializing intent classifier...")
+
+        intent_classifier = IntentClassifier()
+
+        # -----------------------------------------
+        # 7. Initialize Record Ranker
+        # -----------------------------------------
+
         record_ranker = RecordRanker()
 
-        retrieval_service = RetrievalService(
-            retriever=retriever,
+        # -----------------------------------------
+        # 8. Initialize Retrieval Router
+        # -----------------------------------------
+
+        logger.info("Initializing retrieval router...")
+
+        retrieval_router_service = RetrievalRouter(
+            semantic_retriever=semantic_retriever,
+            structured_retriever=structured_retriever,
             record_ranker=record_ranker
         )
 
-        # Store services in application state
+        # -----------------------------------------
+        # 9. Initialize Retrieval Service
+        # -----------------------------------------
+
+        logger.info("Initializing retrieval service...")
+
+        retrieval_service = RetrievalService(
+            intent_classifier=intent_classifier,
+            retrieval_router=retrieval_router_service
+        )
+
+        # -----------------------------------------
+        # 10. Initialize Ollama LLM Service
+        # -----------------------------------------
+
+        logger.info("Initializing Ollama LLM service...")
+
+        llm_service = LLMService()
+
+        # -----------------------------------------
+        # 11. Initialize Answer Generator
+        # -----------------------------------------
+
+        logger.info("Initializing answer generator...")
+
+        answer_generator = AnswerGenerator(
+            llm_service=llm_service
+        )
+
+        # -----------------------------------------
+        # 12. Initialize Complete RAG Service
+        # -----------------------------------------
+
+        logger.info("Initializing complete RAG service...")
+
+        rag_service = RAGService(
+            retrieval_service=retrieval_service,
+            answer_generator=answer_generator
+        )
+
+        # -----------------------------------------
+        # 13. Store Components in Application State
+        # -----------------------------------------
+
         app.state.embedding_service = embedding_service
         app.state.chroma_store = chroma_store
+
+        app.state.record_processor = record_processor
         app.state.ingestion_service = ingestion_service
+
+        app.state.semantic_retriever = semantic_retriever
+        app.state.structured_retriever = structured_retriever
+        app.state.record_ranker = record_ranker
+        app.state.intent_classifier = intent_classifier
+        app.state.retrieval_router = retrieval_router_service
         app.state.retrieval_service = retrieval_service
 
-        logger.info("RAG service initialized successfully")
+        app.state.llm_service = llm_service
+        app.state.answer_generator = answer_generator
+        app.state.rag_service = rag_service
+
+        logger.info("MedScribe RAG Service started successfully.")
 
         yield
 
     except Exception:
-        logger.exception("RAG service initialization failed")
+        logger.exception("Failed to initialize MedScribe RAG Service.")
         raise
 
     finally:
-        logger.info("Shutting down %s", settings.APP_NAME)
+        logger.info("Shutting down MedScribe RAG Service...")
 
 
-# --------------------------------------------------
+# ---------------------------------------------
 # FastAPI Application
-# --------------------------------------------------
+# ---------------------------------------------
 
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
-    description=(
-        "Patient-specific historical record ingestion "
-        "and conversational retrieval service."
-    ),
     debug=settings.DEBUG,
     lifespan=lifespan
 )
 
-# Register routes before startup
+
+# ---------------------------------------------
+# Register API Routers
+# ---------------------------------------------
+
 app.include_router(ingestion_router)
 app.include_router(retrieval_router)
+app.include_router(rag_router)
 
 
-# --------------------------------------------------
+# ---------------------------------------------
 # Health Check
-# --------------------------------------------------
+# ---------------------------------------------
 
-@app.get("/health", tags=["Health"])
+@app.get("/health")
 def health_check():
 
     return {

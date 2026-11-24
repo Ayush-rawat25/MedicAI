@@ -1,67 +1,70 @@
 
-from typing import Optional
-
+from typing import Optional, Literal
 from pydantic import BaseModel, Field
 
 
 class RetrievedRecord(BaseModel):
-    """
-    Represents one historical patient record
-    retrieved from the vector database.
-    """
+    """Represents one retrieved historical patient record."""
 
     record_id: str
-
+    record_type: str
     date: str
 
-    record_type: str
+    content: str = Field(
+        ...,
+        description="Retrieved clinical information from the historical record."
+    )
 
-    content: str
-
-    relevance_score: float
+    relevance_score: Optional[float] = Field(
+        default=None,
+        description="Similarity or reranking score. None for chronological retrieval."
+    )
 
     source: Optional[str] = None
 
 
 class RetrievalMetadata(BaseModel):
-    """
-    Metadata for retrieval monitoring and evaluation.
-    """
+    """Execution details of the retrieval operation."""
 
-    retrieved_count: int = Field(
-        ...,
-        ge=0
-    )
+    retrieval_strategy: Literal[
+        "patient_overview",
+        "category_specific",
+        "chronological"
+    ]
 
-    top_k: int = Field(
-        ...,
-        ge=1
-    )
+    retrieval_method: Literal[
+        "semantic",
+        "structured",
+        "hybrid"
+    ]
 
-    retrieval_time_seconds: float = Field(
-        ...,
-        ge=0
-    )
+    embedding_model: Optional[str] = None
 
-    embedding_model: str
+    vector_database: Optional[str] = None
 
-    vector_database: str = "ChromaDB"
+    candidates_retrieved: int = 0
+
+    records_returned: int = 0
+
+    records_filtered: int = 0
+
+    retrieval_time_seconds: float = 0.0
 
 
 class RetrievalResponse(BaseModel):
-    """
-    Response returned by the RAG service.
-    """
+    """Standard response returned by the conversational RAG service."""
+
+    status: Literal[
+        "success",
+        "no_relevant_records",
+        "no_records_found"
+    ]
 
     patient_id: str
 
-    conversation_id: str
+    conversation_id: Optional[str] = None
 
-    consultation_id: Optional[str] = None
-
-    case_id: Optional[str] = None
-
-    status: str = "success"
+    query: str
 
     retrieved_records: list[RetrievedRecord] = Field(
         default_factory=list

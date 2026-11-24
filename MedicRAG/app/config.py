@@ -11,23 +11,27 @@ class Settings(BaseSettings):
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
 
-    # Embedding Model
+    # Embedding Configuration
     EMBEDDING_MODEL: str = "intfloat/multilingual-e5-base"
     EMBEDDING_DEVICE: str = "cpu"
     EMBEDDING_BATCH_SIZE: int = 16
 
-    # ChromaDB
+    # ChromaDB Configuration
     CHROMA_PERSIST_DIRECTORY: str = "./data/chroma"
     CHROMA_COLLECTION_NAME: str = "patient_records"
     CHROMA_DISTANCE_METRIC: str = "cosine"
 
-    # Retrieval
-    RETRIEVAL_TOP_K: int = 5
-    SIMILARITY_THRESHOLD: float | None = None
+    # Retrieval Configuration
+    RETRIEVAL_CANDIDATE_LIMIT: int = 50
+    SIMILARITY_THRESHOLD: float = 0.82
 
     # Document Processing
     CHUNK_SIZE: int = 500
     CHUNK_OVERLAP: int = 50
+
+    # Ollama Configuration
+    OLLAMA_HOST: str = "http://localhost:11434"
+    OLLAMA_MODEL: str = "llama3.1:8b"
 
     model_config = SettingsConfigDict(
         env_file=".env",

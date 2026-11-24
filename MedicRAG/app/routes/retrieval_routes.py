@@ -3,10 +3,9 @@ import logging
 
 from fastapi import APIRouter, HTTPException, Request, status
 
-from app.schemas.retrieval_input import RetrievalInput
+from app.schemas.retrieval_input import RetrievalRequest
 from app.schemas.retrieval_response import RetrievalResponse
 from app.services.retrieval_service import RetrievalServiceError
-
 
 logger = logging.getLogger(__name__)
 
@@ -22,12 +21,9 @@ router = APIRouter(
     status_code=status.HTTP_200_OK
 )
 def retrieve_patient_history(
-    request: RetrievalInput,
+    request: RetrievalRequest,
     http_request: Request
 ) -> RetrievalResponse:
-    """
-    Retrieve relevant historical records for a patient.
-    """
 
     retrieval_service = http_request.app.state.retrieval_service
 
