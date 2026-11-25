@@ -23,7 +23,7 @@ def load_sample_data():
 
     project_root = Path(__file__).resolve().parents[2]
 
-    data_path = project_root / "data" / "sample_data.json"
+    data_path = project_root / "data" / "p001_ingestion_request.json"
 
     if not data_path.exists():
         raise FileNotFoundError(
@@ -32,6 +32,14 @@ def load_sample_data():
 
     with open(data_path, "r", encoding="utf-8") as file:
         data = json.load(file)
+        print("Data type:", type(data).__name__)
+
+        if isinstance(data, list):
+            print("Total items:", len(data))
+            print("First record:")
+            print(json.dumps(data[0], indent=4))
+        elif isinstance(data, dict):
+            print("Keys:", data.keys())
 
     request = IngestionRequest(**data)
 

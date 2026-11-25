@@ -21,6 +21,7 @@ from app.retrieval.structured_retriver import StructuredRetriever
 from app.retrieval.intent_classifier import IntentClassifier
 from app.retrieval.retrival_router import RetrievalRouter
 from app.services.retrieval_service import RetrievalService
+from app.services.evaluation_service import EvaluationService
 
 # Generation
 from app.generation.llm_service import LLMService
@@ -31,7 +32,7 @@ from app.services.rag_service import RAGService
 from app.routes.ingestion_routes import router as ingestion_router
 from app.routes.retrieval_routes import router as retrieval_router
 from app.routes.rag_routes import router as rag_router
-
+from app.routes.evaluation_routes import router as evaluation_router
 
 logging.basicConfig(
     level=logging.INFO,
@@ -39,6 +40,7 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
 
 
 @asynccontextmanager
@@ -136,6 +138,16 @@ async def lifespan(app: FastAPI):
         )
 
         # -----------------------------------------
+        # 9.1 Initialize Evaluation Service
+        # -----------------------------------------
+
+        logger.info("Initializing evaluation service...")
+
+        evaluation_service = EvaluationService(
+            retrieval_service=retrieval_service,
+            structured_retriever=structured_retriever
+        )
+        # -----------------------------------------
         # 10. Initialize Ollama LLM Service
         # -----------------------------------------
 
@@ -180,6 +192,7 @@ async def lifespan(app: FastAPI):
         app.state.intent_classifier = intent_classifier
         app.state.retrieval_router = retrieval_router_service
         app.state.retrieval_service = retrieval_service
+        app.state.evaluation_service = evaluation_service
 
         app.state.llm_service = llm_service
         app.state.answer_generator = answer_generator
@@ -216,6 +229,7 @@ app = FastAPI(
 app.include_router(ingestion_router)
 app.include_router(retrieval_router)
 app.include_router(rag_router)
+app.include_router(evaluation_router)
 
 
 # ---------------------------------------------
