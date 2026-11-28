@@ -1,10 +1,21 @@
 
 import logging
 from contextlib import asynccontextmanager
+import sys
+from pathlib import Path
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 from fastapi import FastAPI
 
 from app.config import settings
+
+# Evaluation
+from evaluation.services.evaluation_service import EvaluationService
+from evaluation.services.experiment_runner import ExperimentRunner
+from evaluation.routes.evaluation_routes import router as evaluation_router
 
 # Ingestion
 from app.ingestion.record_processor import RecordProcessor
@@ -21,7 +32,6 @@ from app.retrieval.structured_retriver import StructuredRetriever
 from app.retrieval.intent_classifier import IntentClassifier
 from app.retrieval.retrival_router import RetrievalRouter
 from app.services.retrieval_service import RetrievalService
-from app.services.evaluation_service import EvaluationService
 
 # Generation
 from app.generation.llm_service import LLMService
@@ -32,7 +42,7 @@ from app.services.rag_service import RAGService
 from app.routes.ingestion_routes import router as ingestion_router
 from app.routes.retrieval_routes import router as retrieval_router
 from app.routes.rag_routes import router as rag_router
-from app.routes.evaluation_routes import router as evaluation_router
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -42,13 +52,13 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
 
     logger.info("Starting MedScribe RAG Service...")
 
     try:
+
         # -----------------------------------------
         # 1. Initialize Embedding Service
         # -----------------------------------------
@@ -138,25 +148,25 @@ async def lifespan(app: FastAPI):
         )
 
         # -----------------------------------------
-        # 9.1 Initialize Evaluation Service
+        # 10. Initialize LLM Service
+        # -----------------------------------------
+
+        logger.info("Initializing LLM service...")
+
+        llm_service = LLMService()
+
+        # -----------------------------------------
+        # 11. Initialize Evaluation Service
         # -----------------------------------------
 
         logger.info("Initializing evaluation service...")
 
         evaluation_service = EvaluationService(
-            retrieval_service=retrieval_service,
-            structured_retriever=structured_retriever
+            llm_service=llm_service
         )
-        # -----------------------------------------
-        # 10. Initialize Ollama LLM Service
-        # -----------------------------------------
-
-        logger.info("Initializing Ollama LLM service...")
-
-        llm_service = LLMService()
 
         # -----------------------------------------
-        # 11. Initialize Answer Generator
+        # 12. Initialize Answer Generator
         # -----------------------------------------
 
         logger.info("Initializing answer generator...")
@@ -166,7 +176,7 @@ async def lifespan(app: FastAPI):
         )
 
         # -----------------------------------------
-        # 12. Initialize Complete RAG Service
+        # 13. Initialize RAG Service
         # -----------------------------------------
 
         logger.info("Initializing complete RAG service...")
@@ -177,7 +187,20 @@ async def lifespan(app: FastAPI):
         )
 
         # -----------------------------------------
-        # 13. Store Components in Application State
+        # 14. Initialize Experiment Runner
+        # -----------------------------------------
+
+        logger.info("Initializing evaluation experiment runner...")
+
+        experiment_runner = ExperimentRunner(
+            structured_retriever=structured_retriever,
+            retrieval_service=retrieval_service,
+            answer_generator=answer_generator,
+            evaluation_service=evaluation_service
+        )
+
+        # -----------------------------------------
+        # 15. Store Components in Application State
         # -----------------------------------------
 
         app.state.embedding_service = embedding_service
@@ -192,11 +215,13 @@ async def lifespan(app: FastAPI):
         app.state.intent_classifier = intent_classifier
         app.state.retrieval_router = retrieval_router_service
         app.state.retrieval_service = retrieval_service
-        app.state.evaluation_service = evaluation_service
 
         app.state.llm_service = llm_service
         app.state.answer_generator = answer_generator
         app.state.rag_service = rag_service
+
+        app.state.evaluation_service = evaluation_service
+        app.state.experiment_runner = experiment_runner
 
         logger.info("MedScribe RAG Service started successfully.")
 

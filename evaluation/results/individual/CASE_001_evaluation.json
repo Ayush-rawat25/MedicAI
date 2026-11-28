@@ -1,0 +1,765 @@
+{
+  "status": "success",
+  "case_id": "CASE_001",
+  "patient_id": "P001",
+  "consultation_id": "ENC_0014",
+  "query": "What relevant historical medical conditions, allergies, and medications should the doctor consider when reviewing this patient's medical history?",
+  "evaluated_strategy_count": 3,
+  "results": [
+    {
+      "strategy": "consultation_only",
+      "retrieval_evaluation": {
+        "retrieved_record_ids": [],
+        "relevant_record_ids": [
+          "CON_0006",
+          "CON_0007",
+          "CON_0011",
+          "CON_0012",
+          "ALL_0001",
+          "ALL_0002",
+          "ALL_0003",
+          "MED_0002",
+          "MED_0003",
+          "MED_0004",
+          "MED_0005",
+          "MED_0006"
+        ],
+        "relevant_record_ids_retrieved": [],
+        "missed_relevant_record_ids": [
+          "CON_0006",
+          "CON_0007",
+          "CON_0011",
+          "CON_0012",
+          "ALL_0001",
+          "ALL_0002",
+          "ALL_0003",
+          "MED_0002",
+          "MED_0003",
+          "MED_0004",
+          "MED_0005",
+          "MED_0006"
+        ],
+        "record_count": 0,
+        "retrieval_time_seconds": 0.0001,
+        "retrieval_method": null,
+        "metrics": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "mrr": null,
+          "ndcg": null
+        },
+        "metadata": {
+          "status": "not_applicable",
+          "evaluation_type": "consultation_only",
+          "reason": "Historical retrieval is intentionally not performed. Precision, recall and F1 are operationally reported as zero. Ranking metrics are not applicable."
+        }
+      },
+      "answer_evaluation": {
+        "fact_assessments": [
+          {
+            "fact_id": "F001",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F002",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F003",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F004",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F005",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F006",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F007",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F008",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F009",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F010",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F011",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F012",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F013",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F014",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F015",
+            "status": "supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The current medication list has not been verified, and the records suggest that it should be reconciled against a verified current list.",
+            "context_evidence": "The consultation text states 'The current medication list has not been verified during this consultation.'",
+            "explanation": "The generated answer accurately reflects the fact that the medication list has not been verified."
+          }
+        ],
+        "unsupported_claims": [],
+        "total_answer_claims": 3,
+        "applicable_fact_count": 1,
+        "supported_count": 1,
+        "partially_supported_count": 0,
+        "missing_count": 0,
+        "contradicted_count": 0,
+        "not_applicable_count": 14,
+        "coverage_score": 100.0,
+        "fully_supported_percentage": 100.0,
+        "unsupported_claim_rate": 0.0,
+        "critical_fact_errors": 0,
+        "context_grounding_score": 100.0,
+        "metadata": {
+          "assessment_method": "llm_judge",
+          "metric_calculation": "python",
+          "reference_fact_count": 15,
+          "grounding_assessment_count": 1,
+          "claim_count_source": "python_counted_answer_claims",
+          "unsupported_claim_count": 0
+        }
+      },
+      "generation_status": "success",
+      "generation_time_seconds": 53.3169,
+      "total_time_seconds": 53.317,
+      "metadata": {
+        "evaluation_method": "llm_judge_with_python_metrics",
+        "evaluation_time_included": false
+      }
+    },
+    {
+      "strategy": "full_history",
+      "retrieval_evaluation": {
+        "retrieved_record_ids": [
+          "IMM_0001",
+          "MED_0011",
+          "MED_0012",
+          "MED_0013",
+          "MED_0014",
+          "OBS_0001",
+          "OBS_0002",
+          "OBS_0003",
+          "OBS_0004",
+          "OBS_0005",
+          "OBS_0006",
+          "ENC_0013",
+          "MED_0007",
+          "MED_0008",
+          "MED_0009",
+          "MED_0010",
+          "MED_0002",
+          "MED_0003",
+          "MED_0004",
+          "MED_0005",
+          "MED_0006",
+          "ENC_0012",
+          "ENC_0011",
+          "ENC_0010",
+          "ENC_0009",
+          "ENC_0008",
+          "ENC_0007",
+          "ENC_0006",
+          "DEV_0001",
+          "ENC_0005",
+          "ENC_0004",
+          "ENC_0003",
+          "ENC_0002",
+          "ENC_0001",
+          "MED_0001"
+        ],
+        "relevant_record_ids": [
+          "CON_0006",
+          "CON_0007",
+          "CON_0011",
+          "CON_0012",
+          "ALL_0001",
+          "ALL_0002",
+          "ALL_0003",
+          "MED_0002",
+          "MED_0003",
+          "MED_0004",
+          "MED_0005",
+          "MED_0006"
+        ],
+        "relevant_record_ids_retrieved": [
+          "MED_0002",
+          "MED_0003",
+          "MED_0004",
+          "MED_0005",
+          "MED_0006"
+        ],
+        "missed_relevant_record_ids": [
+          "CON_0006",
+          "CON_0007",
+          "CON_0011",
+          "CON_0012",
+          "ALL_0001",
+          "ALL_0002",
+          "ALL_0003"
+        ],
+        "record_count": 35,
+        "retrieval_time_seconds": 0.6479,
+        "retrieval_method": "structured",
+        "metrics": {
+          "precision": 0.14285714285714285,
+          "recall": 0.4166666666666667,
+          "f1_score": 0.21276595744680848,
+          "mrr": null,
+          "ndcg": null
+        },
+        "metadata": {
+          "status": "success",
+          "evaluation_type": "full_history",
+          "relevant_record_count": 12,
+          "retrieved_relevant_count": 5,
+          "reason": "Full-history retrieval is evaluated using set-based precision, recall and F1. Ranking metrics are not applicable."
+        }
+      },
+      "answer_evaluation": {
+        "fact_assessments": [
+          {
+            "fact_id": "F001",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F002",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F003",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F004",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F005",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F006",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F007",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F008",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F009",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F010",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F011",
+            "status": "partially_supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The patient has been prescribed medications for post-MI in November 2009.",
+            "context_evidence": "MED_0002, MED_0003, MED_0004, MED_0005, MED_0006",
+            "explanation": "The generated answer mentions post-MI medication records from November 2009, but does not provide a comprehensive list of medications."
+          },
+          {
+            "fact_id": "F012",
+            "status": "partially_supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The patient has been prescribed medications for hypertension and type 2 diabetes in 2010.",
+            "context_evidence": "MED_0007, MED_0008, MED_0009, MED_0010",
+            "explanation": "The generated answer mentions medication records for hypertension and type 2 diabetes in 2010, but does not provide a comprehensive list of medications."
+          },
+          {
+            "fact_id": "F013",
+            "status": "partially_supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The patient has been prescribed medications in January 2011.",
+            "context_evidence": "MED_0011, MED_0012, MED_0013, MED_0014",
+            "explanation": "The generated answer mentions medication records associated with the January 2011 index encounter, but does not provide a comprehensive list of medications."
+          },
+          {
+            "fact_id": "F014",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Unavailable fact"
+          },
+          {
+            "fact_id": "F015",
+            "status": "supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The medication list has not been verified in the authored consultation scenario.",
+            "context_evidence": null,
+            "explanation": "The generated answer accurately represents the fact that the medication list has not been verified."
+          }
+        ],
+        "unsupported_claims": [
+          {
+            "claim": "The patient has a comprehensive medical history.",
+            "severity": "high",
+            "claim_type": "context_unsupported",
+            "explanation": "The generated answer does not provide a comprehensive medical history."
+          },
+          {
+            "claim": "The patient has been prescribed a medication for hypertension and type 2 diabetes in 2010.",
+            "severity": "medium",
+            "claim_type": "context_unsupported",
+            "explanation": "The generated answer mentions medication records for hypertension and type 2 diabetes in 2010, but does not provide a comprehensive list of medications."
+          },
+          {
+            "claim": "The patient has been prescribed medications in January 2011.",
+            "severity": "medium",
+            "claim_type": "context_unsupported",
+            "explanation": "The generated answer mentions medication records associated with the January 2011 index encounter, but does not provide a comprehensive list of medications."
+          }
+        ],
+        "total_answer_claims": 3,
+        "applicable_fact_count": 4,
+        "supported_count": 1,
+        "partially_supported_count": 3,
+        "missing_count": 0,
+        "contradicted_count": 0,
+        "not_applicable_count": 11,
+        "coverage_score": 62.5,
+        "fully_supported_percentage": 25.0,
+        "unsupported_claim_rate": 100.0,
+        "critical_fact_errors": 0,
+        "context_grounding_score": 100.0,
+        "metadata": {
+          "assessment_method": "llm_judge",
+          "metric_calculation": "python",
+          "reference_fact_count": 15,
+          "grounding_assessment_count": 4,
+          "claim_count_source": "python_counted_answer_claims",
+          "unsupported_claim_count": 3
+        }
+      },
+      "generation_status": "success",
+      "generation_time_seconds": 131.4391,
+      "total_time_seconds": 132.087,
+      "metadata": {
+        "evaluation_method": "llm_judge_with_python_metrics",
+        "evaluation_time_included": false
+      }
+    },
+    {
+      "strategy": "selective_retrieval",
+      "retrieval_evaluation": {
+        "retrieved_record_ids": [
+          "IMM_0001",
+          "MED_0011",
+          "MED_0012",
+          "MED_0013",
+          "MED_0014",
+          "OBS_0001",
+          "OBS_0002",
+          "OBS_0003",
+          "OBS_0004",
+          "OBS_0005",
+          "OBS_0006",
+          "ENC_0013",
+          "MED_0007",
+          "MED_0008",
+          "MED_0009",
+          "MED_0010",
+          "MED_0002",
+          "MED_0003",
+          "MED_0004",
+          "MED_0005",
+          "MED_0006",
+          "ENC_0012",
+          "ENC_0011",
+          "ENC_0010",
+          "ENC_0009",
+          "ENC_0008",
+          "ENC_0007",
+          "ENC_0006",
+          "DEV_0001",
+          "ENC_0005",
+          "ENC_0004",
+          "ENC_0003",
+          "ENC_0002",
+          "ENC_0001",
+          "MED_0001"
+        ],
+        "relevant_record_ids": [
+          "CON_0006",
+          "CON_0007",
+          "CON_0011",
+          "CON_0012",
+          "ALL_0001",
+          "ALL_0002",
+          "ALL_0003",
+          "MED_0002",
+          "MED_0003",
+          "MED_0004",
+          "MED_0005",
+          "MED_0006"
+        ],
+        "relevant_record_ids_retrieved": [
+          "MED_0002",
+          "MED_0003",
+          "MED_0004",
+          "MED_0005",
+          "MED_0006"
+        ],
+        "missed_relevant_record_ids": [
+          "CON_0006",
+          "CON_0007",
+          "CON_0011",
+          "CON_0012",
+          "ALL_0001",
+          "ALL_0002",
+          "ALL_0003"
+        ],
+        "record_count": 35,
+        "retrieval_time_seconds": 0.385,
+        "retrieval_method": "structured",
+        "metrics": {
+          "precision": 0.14285714285714285,
+          "recall": 0.4166666666666667,
+          "f1_score": 0.21276595744680848,
+          "mrr": 0.058823529411764705,
+          "ndcg": 0.2274833520528057
+        },
+        "metadata": {
+          "status": "success",
+          "evaluation_type": "selective_retrieval",
+          "relevant_record_count": 12,
+          "retrieved_relevant_count": 5,
+          "ranking_method": "binary_relevance"
+        }
+      },
+      "answer_evaluation": {
+        "fact_assessments": [
+          {
+            "fact_id": "F001",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F002",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F003",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F004",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F005",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F006",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F007",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F008",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F009",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F010",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F011",
+            "status": "supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The patient has been prescribed medication for post-MI in November 2009.",
+            "context_evidence": "MED_0002, MED_0003, MED_0004, MED_0005, MED_0006",
+            "explanation": "The patient has a history of post-MI medication records from November 2009."
+          },
+          {
+            "fact_id": "F012",
+            "status": "supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The patient has been prescribed medication for hypertension and type 2 diabetes in 2010.",
+            "context_evidence": "MED_0007, MED_0008, MED_0009, MED_0010",
+            "explanation": "The patient has a history of medication records for hypertension and type 2 diabetes in 2010."
+          },
+          {
+            "fact_id": "F013",
+            "status": "supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The patient has been prescribed medication for hypertension and type 2 diabetes in January 2011.",
+            "context_evidence": "MED_0011, MED_0012, MED_0013, MED_0014",
+            "explanation": "The patient has a history of medication records for hypertension and type 2 diabetes in January 2011."
+          },
+          {
+            "fact_id": "F014",
+            "status": "not_applicable",
+            "context_available": false,
+            "context_grounded": null,
+            "answer_evidence": null,
+            "context_evidence": null,
+            "explanation": "Fact not applicable due to context availability"
+          },
+          {
+            "fact_id": "F015",
+            "status": "supported",
+            "context_available": true,
+            "context_grounded": true,
+            "answer_evidence": "The patient's medication list has not been verified during this consultation.",
+            "context_evidence": null,
+            "explanation": "The patient's medication list has not been verified during this consultation."
+          }
+        ],
+        "unsupported_claims": [],
+        "total_answer_claims": 4,
+        "applicable_fact_count": 4,
+        "supported_count": 4,
+        "partially_supported_count": 0,
+        "missing_count": 0,
+        "contradicted_count": 0,
+        "not_applicable_count": 11,
+        "coverage_score": 100.0,
+        "fully_supported_percentage": 100.0,
+        "unsupported_claim_rate": 0.0,
+        "critical_fact_errors": 0,
+        "context_grounding_score": 100.0,
+        "metadata": {
+          "assessment_method": "llm_judge",
+          "metric_calculation": "python",
+          "reference_fact_count": 15,
+          "grounding_assessment_count": 4,
+          "claim_count_source": "python_counted_answer_claims",
+          "unsupported_claim_count": 0
+        }
+      },
+      "generation_status": "success",
+      "generation_time_seconds": 70.7714,
+      "total_time_seconds": 71.1564,
+      "metadata": {
+        "evaluation_method": "llm_judge_with_python_metrics",
+        "evaluation_time_included": false
+      }
+    }
+  ],
+  "metadata": {
+    "strategy_count": 3,
+    "reference_fact_count": 15,
+    "relevant_record_count": 12,
+    "evaluation_model": "llama3.1:8b",
+    "evaluation_method": "LLM-as-judge with Python metric calculation"
+  }
+}

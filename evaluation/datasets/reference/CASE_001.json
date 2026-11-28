@@ -1,0 +1,367 @@
+
+{
+  "schema_version": "1.0",
+  "case_id": "CASE_001",
+  "patient_id": "P001",
+  "source_dataset": "Reduced Synthea synthetic patient dataset with authored synthetic consultation",
+  "index_encounter_id": "ENC_0014",
+  "knowledge_cutoff": "2011-01-14T11:01:39Z",
+  "purpose": "Evaluator-only reference facts for comparing consultation_only, full_history, and selective_retrieval.",
+  "annotation_status": "provisional_source_checked_pending_clinical_and_relevance_review",
+  "important_status_note": "This is a provisional evaluation reference derived from the supplied reduced dataset. It is not a clinically validated gold standard. Historical prescriptions must not be interpreted as proof of current medication adherence.",
+  "reference_facts": [
+    {
+      "fact_id": "F001",
+      "category": "condition",
+      "reference_statement": "The patient has a historical record of essential hypertension beginning 1998-11-06.",
+      "source_record_ids": ["CON_0006"],
+      "source_type": "conditions",
+      "source_dates": ["1998-11-06"],
+      "temporal_status": "historical_recorded_condition",
+      "importance": "high",
+      "scoring_role": "coverage",
+      "expected_representation": "Represent as a historical recorded diagnosis, not a newly diagnosed condition.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical essential hypertension."
+    },
+    {
+      "fact_id": "F002",
+      "category": "condition",
+      "reference_statement": "The patient has a historical record of type 2 diabetes mellitus beginning 1998-11-06.",
+      "source_record_ids": ["CON_0007"],
+      "source_type": "conditions",
+      "source_dates": ["1998-11-06"],
+      "temporal_status": "historical_recorded_condition",
+      "importance": "high",
+      "scoring_role": "coverage",
+      "expected_representation": "Represent as a recorded historical diagnosis. Do not infer current disease control from this record alone.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical type 2 diabetes mellitus."
+    },
+    {
+      "fact_id": "F003",
+      "category": "condition",
+      "reference_statement": "The patient has a historical record of prediabetes dated 1974-12-20.",
+      "source_record_ids": ["CON_0002"],
+      "source_type": "conditions",
+      "source_dates": ["1974-12-20"],
+      "temporal_status": "historical_recorded_condition",
+      "importance": "medium",
+      "scoring_role": "coverage",
+      "expected_representation": "Mention as a historical recorded condition, not as proof of current prediabetes.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical prediabetes."
+    },
+    {
+      "fact_id": "F004",
+      "category": "condition",
+      "reference_statement": "The patient has a historical record of anemia dated 1974-12-20.",
+      "source_record_ids": ["CON_0003"],
+      "source_type": "conditions",
+      "source_dates": ["1974-12-20"],
+      "temporal_status": "historical_recorded_condition",
+      "importance": "medium",
+      "scoring_role": "coverage",
+      "expected_representation": "Represent as a historical recorded diagnosis, without assuming it is currently active.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical anemia."
+    },
+    {
+      "fact_id": "F005",
+      "category": "condition",
+      "reference_statement": "The patient has a historical record of obesity dated 1990-01-05.",
+      "source_record_ids": ["CON_0005"],
+      "source_type": "conditions",
+      "source_dates": ["1990-01-05"],
+      "temporal_status": "historical_recorded_condition",
+      "importance": "medium",
+      "scoring_role": "coverage",
+      "expected_representation": "Represent as a historical record. Do not assume current obesity from this old entry.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical obesity record."
+    },
+    {
+      "fact_id": "F006",
+      "category": "condition",
+      "reference_statement": "The patient has historical records of hypertriglyceridemia and metabolic syndrome dated 1999-11-12.",
+      "source_record_ids": ["CON_0008", "CON_0009"],
+      "source_type": "conditions",
+      "source_dates": ["1999-11-12", "1999-11-12"],
+      "temporal_status": "historical_recorded_conditions",
+      "importance": "medium",
+      "scoring_role": "coverage",
+      "expected_representation": "Mention both recorded conditions as historical diagnoses, without assuming current status.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical hypertriglyceridemia and metabolic syndrome."
+    },
+    {
+      "fact_id": "F007",
+      "category": "condition",
+      "reference_statement": "The patient has a historical record of hyperglycemia dated 2000-11-17.",
+      "source_record_ids": ["CON_0010"],
+      "source_type": "conditions",
+      "source_dates": ["2000-11-17"],
+      "temporal_status": "historical_recorded_condition",
+      "importance": "medium",
+      "scoring_role": "coverage",
+      "expected_representation": "Represent as a historical recorded condition, not a current glucose result.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical hyperglycemia."
+    },
+    {
+      "fact_id": "F008",
+      "category": "condition",
+      "reference_statement": "The patient has a record of acute non-ST segment elevation myocardial infarction dated 2009-11-17 and a history-of-myocardial-infarction entry dated 2009-11-19.",
+      "source_record_ids": ["CON_0011", "CON_0012"],
+      "source_type": "conditions",
+      "source_dates": ["2009-11-17", "2009-11-19"],
+      "temporal_status": "historical_event",
+      "importance": "critical",
+      "scoring_role": "coverage",
+      "expected_representation": "Represent as a previous MI/NSTEMI history, not as an acute event at the 2011 encounter. Score the two source records as one clinical concept.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical NSTEMI and history of myocardial infarction."
+    },
+    {
+      "fact_id": "F009",
+      "category": "allergy",
+      "reference_statement": "The allergy records identify an allergic disposition and tree pollen as an environmental allergen.",
+      "source_record_ids": ["ALL_0001", "ALL_0002"],
+      "source_type": "allergies",
+      "source_dates": ["1956-07-02", "1956-07-02"],
+      "temporal_status": "recorded_allergy",
+      "importance": "medium",
+      "scoring_role": "coverage",
+      "expected_representation": "Mention tree pollen as the recorded environmental allergen. Do not infer an unrecorded reaction or severity.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Recorded environmental allergy to tree pollen."
+    },
+    {
+      "fact_id": "F010",
+      "category": "allergy",
+      "reference_statement": "The allergy record lists cefdinir with anaphylaxis and severity recorded as SEVERE.",
+      "source_record_ids": ["ALL_0003"],
+      "source_type": "allergies",
+      "source_dates": ["1956-07-02"],
+      "temporal_status": "recorded_allergy",
+      "importance": "critical",
+      "scoring_role": "coverage",
+      "expected_representation": "Preserve cefdinir as the allergen, anaphylaxis as the reaction, and severe as the recorded severity.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Cefdinir allergy with severe anaphylaxis."
+    },
+    {
+      "fact_id": "F011",
+      "category": "medication",
+      "reference_statement": "Medication records dated 2009-11-19 list aspirin 81 mg, metoprolol tartrate 50 mg, atorvastatin 80 mg, losartan 100 mg, and prasugrel 10 mg.",
+      "source_record_ids": ["MED_0002", "MED_0003", "MED_0004", "MED_0005", "MED_0006"],
+      "source_type": "medications",
+      "source_dates": [
+        "2009-11-19",
+        "2009-11-19",
+        "2009-11-19",
+        "2009-11-19",
+        "2009-11-19"
+      ],
+      "temporal_status": "historical_medication_records",
+      "importance": "high",
+      "scoring_role": "coverage",
+      "expected_representation": "Identify these as medications recorded after the 2009 MI-related hospitalization. Do not claim they are confirmed current medications at the 2011 encounter.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Historical post-MI medication records from November 2009."
+    },
+    {
+      "fact_id": "F012",
+      "category": "medication",
+      "reference_statement": "Medication records beginning 2010-01-08 list hydrochlorothiazide 25 mg, metformin extended-release 500 mg, lisinopril 10 mg, and amlodipine 2.5 mg. Their recorded stop date is 2011-01-14.",
+      "source_record_ids": ["MED_0007", "MED_0008", "MED_0009", "MED_0010"],
+      "source_type": "medications",
+      "source_dates": [
+        "2010-01-08T10:17:08Z",
+        "2010-01-08T10:17:08Z",
+        "2010-01-08T10:17:08Z",
+        "2010-01-08T10:17:08Z"
+      ],
+      "temporal_status": "historical_medication_records_ending_at_index_date",
+      "importance": "high",
+      "scoring_role": "coverage",
+      "expected_representation": "Report these as recorded prescriptions with their dates and stop dates. Do not assume actual adherence.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "2010 medication records for hypertension and type 2 diabetes."
+    },
+    {
+      "fact_id": "F013",
+      "category": "medication",
+      "reference_statement": "Medication records dated 2011-01-14 list hydrochlorothiazide 25 mg, metformin extended-release 500 mg, lisinopril 10 mg, and amlodipine 2.5 mg, with recorded stop dates of 2012-01-20.",
+      "source_record_ids": ["MED_0011", "MED_0012", "MED_0013", "MED_0014"],
+      "source_type": "medications",
+      "source_dates": [
+        "2011-01-14T10:17:08Z",
+        "2011-01-14T10:17:08Z",
+        "2011-01-14T10:17:08Z",
+        "2011-01-14T10:17:08Z"
+      ],
+      "temporal_status": "medication_records_at_index_encounter",
+      "importance": "critical",
+      "scoring_role": "coverage",
+      "expected_representation": "Identify these as medication records entered at the index encounter. Preserve the distinction between a recorded prescription and patient-confirmed medication use.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Medication records associated with the January 2011 index encounter."
+    },
+    {
+      "fact_id": "F014",
+      "category": "other",
+      "reference_statement": "The patient has a medication review due record dated 2011-01-14.",
+      "source_record_ids": ["CON_0014"],
+      "source_type": "conditions",
+      "source_dates": ["2011-01-14"],
+      "temporal_status": "index_encounter_record",
+      "importance": "high",
+      "scoring_role": "coverage",
+      "expected_representation": "Mention that a medication review was recorded as due. Do not invent the outcome of that review.",
+      "strategy_context_availability": {
+        "A_consultation_only": false,
+        "B_full_history": true,
+        "C_selective_retrieval": "only_if_retrieved"
+      },
+      "source_verification_status": "checked_against_reduced_dataset",
+      "clinical_review_status": "pending",
+      "description": "Medication review due at the index encounter."
+    },
+    {
+      "fact_id": "F015",
+      "category": "medication",
+      "reference_statement": "The authored consultation states that the current medication list has not been verified and should be reconciled against a verified current list before documenting a definite current regimen.",
+      "source_record_ids": [],
+      "source_type": "authored_consultation",
+      "source_dates": ["2011-01-14"],
+      "temporal_status": "current_consultation",
+      "importance": "high",
+      "scoring_role": "coverage",
+      "expected_representation": "Preserve uncertainty about current medication use. Do not claim that all recorded prescriptions are confirmed as being taken.",
+      "strategy_context_availability": {
+        "A_consultation_only": true,
+        "B_full_history": true,
+        "C_selective_retrieval": true
+      },
+      "source_verification_status": "checked_against_supplied_consultation_text",
+      "clinical_review_status": "pending",
+      "description": "Medication list not verified in the authored consultation scenario."
+    }
+  ],
+  "scoring_protocol": {
+    "coverage_labels": [
+      "supported",
+      "partially_supported",
+      "missing",
+      "contradicted",
+      "not_applicable"
+    ],
+    "suggested_coverage_score": "(supported_count + 0.5 * partially_supported_count) / applicable_reference_fact_count * 100",
+    "report_separately": [
+      "fully_supported_percentage",
+      "partial_support_count",
+      "missing_count",
+      "contradiction_count",
+      "critical_fact_errors"
+    ],
+    "context_grounding_rule": "Evaluate global correctness separately from whether a claim is supported by the context actually supplied to the strategy. A historical fact may be globally true but unavailable to consultation_only.",
+    "temporal_rule": "Preserve source dates and stop dates. Historical diagnoses and prescriptions must not automatically be represented as current conditions or confirmed medication use.",
+    "duplicate_rule": "F008 combines two related MI source records into one clinical concept. F009 combines the general allergic disposition and tree pollen records. Score each grouped fact once.",
+    "medication_rule": "Distinguish medication records, prescription dates, and stop dates from patient-confirmed adherence. Do not infer that a prescription was taken merely because it appears in the dataset.",
+    "consultation_rule": "F015 is available to all strategies because it is supplied in the consultation text.",
+    "strategy_availability": "Historical facts are unavailable to consultation_only. Full_history has access to eligible patient history. Selective_retrieval has access only when the corresponding source records are actually retrieved.",
+    "cutoff_rule": "The cutoff is set to the end of the index encounter. Confirm that the experiment runner uses an inclusive cutoff so records timestamped during the index encounter are not unintentionally excluded."
+  },
+  "strategy_context_definitions": {
+    "A_consultation_only": "Authored consultation text plus current encounter measurements only; no longitudinal history records.",
+    "B_full_history": "Same consultation and current encounter measurements plus the complete P001 history snapshot filtered to the cutoff.",
+    "C_selective_retrieval": "Same consultation and current encounter measurements plus only the historical records actually returned by the retriever."
+  },
+  "review_checklist": [
+    "Confirm clinical relevance and criticality of retained diagnoses and allergies.",
+    "Confirm whether older conditions such as prediabetes, anemia, and obesity should remain in the primary scoring denominator.",
+    "Confirm the medication records and their stop dates against the source dataset.",
+    "Verify inclusive cutoff behavior for records at the index encounter timestamp.",
+    "Verify that every source_record_id exists in the reduced dataset.",
+    "Freeze the reference before final evaluation; do not edit reference facts to match model outputs."
+  ]
+}
